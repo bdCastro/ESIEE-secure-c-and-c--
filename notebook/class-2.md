@@ -30,7 +30,6 @@ int main() {
     continue_or_not();
     return 0;
 }
-
 ```
 
 ##### stack
