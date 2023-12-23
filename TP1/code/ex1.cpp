@@ -25,7 +25,7 @@ namespace HttpServer {
 
   class VulnerableHandler : public Http::Handler {
   public:
-    HTTP_PROTOTYPE(VulnerableHandler)
+    // HTTP_PROTOTYPE(VulnerableHandler)
 
     void onRequest(const Http::Request &request, Http::ResponseWriter response) {
       if (request.resource() == "/" ||

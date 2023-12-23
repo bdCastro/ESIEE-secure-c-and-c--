@@ -1,19 +1,15 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stddef.h>
+#include <string.h>
 
-constexpr size_t MAXARGS = 10;
-constexpr size_t MAXALLOC = 128;
-constexpr size_t MAXARGLEN = 256;
+#define MAXARGS 10
+#define MAXALLOC 128
+#define MAXARGLEN 256
 
 typedef struct arglist {
     char *arg[MAXARGS];
 } arglist;
-
-void main() {
-    char *buf;
-    buf = (char *)malloc(MAXALLOC);
-    return fillbuf(buf);
-}
 
 int getarg(arglist **al, short index) {
     char *inputbuf;
@@ -28,10 +24,18 @@ int fillbuf(char *target) {
     arglist *aList = NULL;
     if (target) *target = '\0';
     while (getarg(&aList, i) && (i < MAXARGS)) {
-        if (target != NULL)
+        if (target != NULL) {
             strcpy(target, aList->arg[i++]);
-        /* ... */
-        printf("%s\n", target);
-        /* ... */
+            printf("%s\n", target);
+        }
     }
+
+    return 0;
 }
+
+int main() {
+    char *buf;
+    buf = (char *)malloc(MAXALLOC);
+    return fillbuf(buf);
+}
+
