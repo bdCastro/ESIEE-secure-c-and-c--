@@ -1,6 +1,14 @@
 \documentclass{article}
 \usepackage{graphicx} % Required for inserting images
 \usepackage[margin=1in]{geometry} % Reduz as margens para 1 polegada em todos os lados
+\usepackage{hyperref} % Required for inserting links
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=red,
+    urlcolor=red,
+    citecolor=red,
+}
 
 \title{Lab 01 Report}
 \author{Bruno Luiz D. A. de Castro}
@@ -13,6 +21,10 @@
 \section{Introduction}
 
 During this lab, we were tasked with using different tools available for Linux to try to detect and fix some common venerability issues with given codes. These snippets of code were extracted and adapted from notorious software and were involved in famous exploits found on these programs.
+
+\subsection{GitHub}
+
+All the code used during this lab can be found on the following \href{https://github.com/bdCastro/ESIEE-secure-c-and-cpp/tree/main/TP1}{GitHub Repository}.
 
 \section{The tools}
 
@@ -181,12 +193,368 @@ GCC Warnings gave the following warnings as output:
     \caption{Clang Sanitizers output}\label{fig:ex2/gccWarnings}
 \end{figure}
 
-% \subsubsubsection{Fixes}
+The fixes were:
 
 \begin{itemize}
     \item Changed the return type of main to int.
     \item Changed the order of declaration of the functions.
     \item Added a return statement to the function \textit{fillbuf}.
 \end{itemize}
+
+After the fixes, GCC Warnings gave no output.
+
+\subsubsection{Clang Warnings}
+
+Clang Warnings gave the same warnings as GCC Warnings, so no fixes were needed.
+
+\subsubsection{cppcheck}
+
+cppcheck gave the following output:
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/ex2/cppcheck.png}
+    \caption{cppcheck output}\label{fig:ex2/cppcheck}
+\end{figure}
+
+The fixes were:
+
+\begin{itemize}
+    \item Moved all instructions in while to the the \textit{if(taget != NULL)} block.
+\end{itemize}
+
+After the fixes, cppcheck gave no output.
+
+\subsubsection{GCC Analyzer}
+
+GCC Analyzer gave no output at this point.
+
+\subsubsection{Clang Analyzer}
+
+Clang Analyzer gave the following output:
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/ex2/clangAnalyzer.png}
+    \caption{Clang Analyzer output}\label{fig:ex2/clangAnalyzer}
+\end{figure}
+
+The fixes were:
+
+\begin{itemize}
+    \item Moved all instructions in while to the the \textit{if(taget != NULL)} block.
+\end{itemize}
+
+After the fixes, Clang Analyzer gave no output.
+
+\subsubsection{GCC Sanitizers}
+
+GCC Sanitizers gave no output.
+
+\subsubsection{Clang Sanitizers}
+
+Clang Sanitizers gave no output.
+
+\subsubsection{Valgrind}
+
+Valgrind gave no output.
+
+\subsection{Exercise 3}
+
+This exercise includes the code of a simple program, that creates an object, checks for a flag, and delete it.
+
+\subsubsection{GCC Warnings}
+
+GCC Warnings did not give any output.
+
+\subsubsection{Clang Warnings}
+
+Clang Warnings found the following warning:
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/ex3/clangWarnings.png}
+    \caption{Clang Warnings output}\label{fig:ex3/clangWarnings}
+\end{figure}
+
+The fixes were:
+
+\begin{itemize}
+    \item Added a ``\%s'' to the \textit{printf()} call, to avoid a possible attack with ``\%'' in the string.
+\end{itemize}
+
+After the fixes, Clang Warnings gave no output.
+
+\subsubsection{cppcheck}
+
+cppcheck gave no output.
+
+\subsubsection{GCC Analyzer}
+
+GCC Analyzer gave no output.
+
+\subsubsection{Clang Analyzer}
+
+Clang Analyzer gave no output.
+
+\subsubsection{GCC Sanitizers}
+
+GCC Sanitizers gave no output.
+
+\subsubsection{Clang Sanitizers}
+
+Clang Sanitizers gave no output.
+
+\subsubsection{Valgrind}
+
+Valgrind found no possible vulnerabilities.
+
+\subsection{Exercise 4}
+
+This exercise includes the code of a simple websocket server, that receives a message, and sends it back to the client.
+
+\subsubsection{GCC Warnings}
+
+GCC Warnings gave the following warnings:
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/ex4/gccWarnings.png}
+    \caption{GCC Warnings output}\label{fig:ex4/gccWarnings}
+\end{figure}
+
+The fixes were:
+
+\begin{itemize}
+    \item Removed the unused args from the \textit{main()} function.
+    \item Changed the \textit{buf} variable to a const.
+\end{itemize}
+
+After the fixes, GCC Warnings gave no output.
+
+\subsubsection{Clang Warnings}
+
+Clang Warnings gave no warnings.
+
+\subsubsection{cppcheck}
+
+cppcheck gave the following output:
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/ex4/cppcheck.png}
+    \caption{cppcheck output}\label{fig:ex4/cppcheck}
+\end{figure}
+
+The fixes were:
+
+\begin{itemize}
+    \item Changed the scope of the \textit{int cli} variable.
+\end{itemize}
+
+After the fixes, cppcheck gave no output.
+
+\subsubsection{GCC Analyzer}
+
+GCC Analyzer gave the following warning:
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/ex4/gccAnalyzer.png}
+    \caption{GCC Analyzer output}\label{fig:ex4/gccAnalyzer}
+\end{figure}
+
+The fixes were:
+
+\begin{itemize}
+    \item Added a guard clause to the do while loop.
+\end{itemize}
+
+After the fixes, GCC Analyzer gave no output.
+
+\subsubsection{Clang Analyzer}
+
+Clang Analyzer gave no warnings.
+
+\subsubsection{GCC Sanitizers}
+
+GCC Sanitizers gave no output.
+
+\subsubsection{Clang Sanitizers}
+
+Clang Sanitizers gave no output.
+
+\subsubsection{Valgrind}
+
+Valgrind found no vulnerabilities.
+
+\subsection{Exercise 5}
+
+This exercise includes the code of a program that pretends to copy a fake file.
+
+\subsubsection{GCC Warnings}
+
+GCC Warnings gave the following warnings:
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/ex5/gccWarnings.png}
+    \caption{GCC Warnings output}\label{fig:ex5/gccWarnings}
+\end{figure}
+
+The fixes were:
+
+\begin{itemize}
+    \item Changed the \textit{size} array type to int.
+    \item Added an include to the \textit{stdlib.h} library.
+    \item Added an include to the \textit{string.h} library.
+    \item Removed the unused \textit{argc} and \textit{argv} args from the \textit{main()} function.
+\end{itemize}
+
+After the fixes, GCC Warnings gave no output.
+
+\subsubsection{Clang Warnings}
+
+Clang Warnings gave the same warnings as GCC Warnings, so no fixes were needed.
+
+\subsubsection{cppcheck}
+
+cppcheck gave no warnings.
+
+\subsubsection{GCC Analyzer}
+
+GCC Analyzer gave the following warning:
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/ex5/gccAnalyzer.png}
+    \caption{GCC Analyzer output}\label{fig:ex5/gccAnalyzer}
+\end{figure}
+
+The fixes were:
+
+\begin{itemize}
+    \item Added a guard clause to the \textit{data} variable.
+\end{itemize}
+
+After the fixes, GCC Analyzer gave no output.
+
+\subsubsection{Clang Analyzer}
+
+Clang Analyzer gave the following warning:
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/ex5/clangAnalyzer.png}
+    \caption{Clang Analyzer output}\label{fig:ex5/clangAnalyzer}
+\end{figure}
+
+The fixes were:
+
+\begin{itemize}
+    \item Added a chack for the \textit{data} variable in \textit{mock} object.
+\end{itemize}
+
+After the fixes, Clang Analyzer gave no output.
+
+\subsubsection{GCC Sanitizers}
+
+GCC Sanitizers detected a memory leak:
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/ex5/gccSanitizers.png}
+    \caption{GCC Sanitizers output}\label{fig:ex5/gccSanitizers}
+\end{figure}
+
+The fixes were:
+
+\begin{itemize}
+    \item Freed the \textit{mock.data} variable in the end of the program.
+\end{itemize}
+
+After the fixes, GCC Sanitizers gave no output.
+
+\subsubsection{Clang Sanitizers}
+
+Clang Sanitizers detected the same memory leak as GCC Sanitizers, so no fixes were needed.
+
+\subsubsection{Valgrind}
+
+Valgrind detected the same memory leak as GCC Sanitizers, so no fixes were needed.
+
+\subsection{Exercise 6}
+
+This exercise includes the code of a program with a simple Object class with a constructor and a destructor.
+
+\subsubsection{GCC Warnings}
+
+GCC Warnings gave the following warnings:
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/ex6/gccWarnings.png}
+    \caption{GCC Warnings output}\label{fig:ex6/gccWarnings}
+\end{figure}
+
+The fixes were:
+
+\begin{itemize}
+    \item Removed the unused \textit{argc} and \textit{argv} args from the \textit{main()} function.
+    \item Removed the \textit{obj} argument from the \textit{test()} function.
+\end{itemize}
+
+After the fixes, GCC Warnings gave no output.
+
+\subsubsection{Clang Warnings}
+
+Clang Warnings gave the same warnings as GCC Warnings, so no fixes were needed.
+
+\subsubsection{cppcheck}
+
+cppcheck gave the following output:
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/ex6/cppcheck.png}
+    \caption{cppcheck output}\label{fig:ex6/cppcheck}
+\end{figure}
+
+The fixes were:
+
+\begin{itemize}
+    \item Added a copy constructor to the \textit{Object} class.
+    \item Added an operator= to the \textit{Object} class.
+\end{itemize}
+
+After the fixes, cppcheck gave no output.
+
+\subsubsection{GCC Analyzer}
+
+GCC Analyzer found no warnings.
+
+\subsubsection{Clang Analyzer}
+
+Clang Analyzer found no warnings.
+
+\subsubsection{GCC Sanitizers}
+
+GCC Sanitizers found no vulnerabilities.
+
+\subsubsection{Clang Sanitizers}
+
+Clang Sanitizers found no vulnerabilities.
+
+\subsubsection{Valgrind}
+
+Valgrind found no vulnerabilities.
+
+\subsection{Exercises 7 and 8}
+
+These exercises were impossible to be done in the platform I was working on. Exercise 7 had some compiler issues, and Exercise 8 lacks the \textit{Windows.h} library, which is not available on Linux.
+
+\section{Conclusion}
+
+During this lab, we were able to use some tools to detect some commos vulnerabilities in code. Some vulnerabilities are easy to detect, and can be done in compile time. Others require a more direct approch. It is extremely important to know how and when to use each tools, and how to fix the vulnerabilities they find.
 
 \end{document}
