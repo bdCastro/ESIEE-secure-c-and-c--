@@ -11,13 +11,6 @@ typedef struct arglist {
     char *arg[MAXARGS];
 } arglist;
 
-int getarg(arglist **al, short index) {
-    char *inputbuf;
-    inputbuf = (char *)malloc(MAXARGLEN);
-    fgets(inputbuf, MAXARGLEN, stdin);
-    (*al)->arg[index] = inputbuf;
-    return strcasecmp("END", inputbuf) ? 0 : 1;
-}
 
 int fillbuf(char *target) {
     short i = 0;
@@ -33,9 +26,16 @@ int fillbuf(char *target) {
     return 0;
 }
 
+int getarg(arglist **al, short index) {
+    char *inputbuf;
+    inputbuf = (char *)malloc(MAXARGLEN);
+    fgets(inputbuf, MAXARGLEN, stdin);
+    (*al)->arg[index] = inputbuf;
+    return strcasecmp("END", inputbuf) ? 0 : 1;
+}
+
 int main() {
     char *buf;
     buf = (char *)malloc(MAXALLOC);
     return fillbuf(buf);
 }
-

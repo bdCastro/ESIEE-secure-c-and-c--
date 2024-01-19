@@ -11,6 +11,19 @@ public:
     printf("Object initialized\n");
   }
 
+  Object(const Object& obj) {
+    buf = malloc(1024);
+    memcpy(buf, obj.buf, 1024);
+    printf("Object copied\n");
+  }
+
+  Object& operator=(const Object& other) {
+    memcpy(buf, other.buf, 1024);
+    printf("buf copied\n");
+
+    return *this;
+  }
+
   ~Object() {
     printf("Destructor is triggered\n");
     free(buf);
@@ -18,12 +31,12 @@ public:
   }
 };
 
-void test(Object obj) {
+void test() {
   printf("In Function %s()\n", __func__);
 }
 
-int main(int args, char** argv) {
+int main() {
   Object obj;
-  test(obj);
+  test();
   return 0;
 }

@@ -13,7 +13,7 @@ int main(int args, char** argv) {
   }
 
   SomeObject* obj = new SomeObject();
-  printf(argv[1]);
+  printf("%s", argv[1]);
   printf("\n");
 
   assert(!obj->flag);

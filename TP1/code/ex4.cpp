@@ -5,7 +5,7 @@
 #include <unistd.h>
 using namespace std;
 
-int main(int args, char** argv) {
+int main() {
   /*
    *  Initialize the socket
    */
@@ -41,17 +41,19 @@ int main(int args, char** argv) {
   }
   cout << "[*] Listening on port 8080..." << endl;
 
-  int cli;
   sockaddr_in src;
   socklen_t srcLen = sizeof(src);
 
   while (true) {
-    cli = accept(s, (struct sockaddr*) &src, &srcLen);
+    int cli = accept(s, (struct sockaddr*) &src, &srcLen);
     int r;
 
     /* Keep recving until the client closes the connection */
     do {
       char *recvBuf = (char*) malloc(1024);
+
+      if(recvBuf == NULL) break;
+      
       memset(recvBuf, 0x00, 1024);
       r = recv(cli, recvBuf, 1023, 0);
 
@@ -59,7 +61,7 @@ int main(int args, char** argv) {
       cout << "[*] ACK!" << endl;
 
       // Send the client something
-      char *buf = "hello\n";
+      const char *buf = "hello\n";
       send(cli, buf, strlen(buf), 0);
     } while (r > 0);
 

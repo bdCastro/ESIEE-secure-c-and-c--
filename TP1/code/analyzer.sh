@@ -79,7 +79,7 @@ else
     clang++ -std=gnu++20 -O2 -w -fsanitize=leak,address,undefined "$NAME" -g -o "/tmp/$TAG-clang-sanitizer"
 fi
 
-"./$TAG-clang-sanitizer"
+"/tmp/$TAG-clang-sanitizer"
 
 printf "\n================ valgrind ================\n\n"
 
