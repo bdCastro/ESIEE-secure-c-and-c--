@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{graphicx} % Required for inserting images
+\usepackage[margin=1in]{geometry} % Reduz as margens para 1 polegada em todos os lados
 
 \title{Lab 01 Report}
 \author{Bruno Luiz D. A. de Castro}
@@ -92,5 +93,100 @@ This exercise includes the code of a simple HTTP Server writen in C++, using the
 Due to the inavailability of the library, most of the tools were unable to run.
 
 \subsubsection{GCC Warnings}
+
+GCC Warnings was not able to run, due to the inavailability of the Pistache library.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/ex1/gccWarnings.png}
+    \caption{GCC Warnings output}\label{fig:ex1/gccWarnings}
+\end{figure}
+
+\subsubsection{Clang Warnings}
+
+Similar to GCC Warnings, Clang Warnings was not able to run, due to the inavailability of the Pistache library.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/ex1/clangWarnings.png}
+    \caption{Clang Warnings output}\label{fig:ex1/clangWarnings}
+\end{figure}
+
+\subsubsection{cppcheck}
+
+cppcheck was able to find one problem in the code: the function \textit{onRequest} is not used anywhere in the code. This is not a security vulnerability, so nothing needs to be done.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/ex1/cppcheck.png}
+    \caption{cppcheck output}\label{fig:ex1/cppcheck}
+\end{figure}
+
+\subsubsection{GCC Analyzer}
+
+GCC Analyzer was not able to run, due to the inavailability of the Pistache library. This is a bit surprising, since this tool does not perform any compilation, and should be able to run without the library. Either way, nothing can be done about it.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/ex1/gccAnalyzer.png}
+    \caption{GCC Analyzer output}
+    \label{fig:ex1/gccAnalyzer}
+\end{figure}
+
+\subsubsection{Clang Analyzer}
+
+Clang Analyzer was also not able to run as well, due to the inavailability of the Pistache library. Similar to GCC Analyzer, this is a bit surprising, since this tool does not perform any compilation, and should be able to run without the library.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/ex1/clangAnalyzer.png}
+    \caption{Clang Analyzer output}\label{fig:ex1/clangAnalyzer}
+\end{figure}
+
+\subsubsection{GCC Sanitizers}
+
+GCC Sanitizers was not able to run, due to the inavailability of the Pistache library. As this tool needs to generate a special executable, it is not surprising at all.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/ex1/gccSanitizers.png}
+    \caption{GCC Sanitizers output}\label{fig:ex1/gccSanitizers}
+\end{figure}
+
+\subsubsection{Clang Sanitizers}
+
+Clang Sanitizers was also not able to run, due to the inavailability of the Pistache library. For the same reason as GCC Sanitizers, this is not surprising at all, as it also needs to generate a special executable, and without the library, it is not possible.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/ex1/clangSanitizers.png}
+    \caption{Clang Sanitizers output}\label{fig:ex1/clangSanitizers}
+\end{figure}
+
+\subsubsection{Valgrind}
+
+Valgrind needs an executable to run, and as the Pistache library is not available, an executable cannot be generated, and thus, Valgrind cannot run.
+
+\subsection{Exercise 2}
+
+This exercise includes the code simple program, that receives an input, fills a buffer with it, and then prints it.
+
+\subsubsection{GCC Warnings}
+
+GCC Warnings gave the following warnings as output:
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/ex2/gccWarnings.png}
+    \caption{Clang Sanitizers output}\label{fig:ex2/gccWarnings}
+\end{figure}
+
+% \subsubsubsection{Fixes}
+
+\begin{itemize}
+    \item Changed the return type of main to int.
+    \item Changed the order of declaration of the functions.
+    \item Added a return statement to the function \textit{fillbuf}.
+\end{itemize}
 
 \end{document}
