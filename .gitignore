@@ -1,9 +1,8 @@
 /.vscode
-/.DS_Store
+**/.DS_Store
 **/bin
 **/*.out
 **/report.*
 !**/report.tex
 !**/report.pdf
-
 **/*.o
