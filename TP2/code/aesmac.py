@@ -12,6 +12,7 @@ import time
 #  - You cannot read the value of 'key' (except for debugging)
 #  - You cannot use 'trace=True' (except for debugging)
 #
+
 class Verifier:
     def __init__(self, length, slowness):
         assert length <= 32
@@ -45,19 +46,49 @@ class Verifier:
 #
 # End of 'do not modify' class
 #
-
-
-def main():
-    message = "DummyTestMessage"
-
-    length = 16
+    
+def cracker(message, length, iterations):
     tag = bytearray(b"\x00" * length)
 
+    for i in range(length):
+        times = [0] * 0x100
+        for _ in range(iterations):
+            for j in range(0x100):
+                tag[i] = j
+                verifier = Verifier(length=length, slowness=1000)
+
+                tic = time.perf_counter()
+                res = verifier.verify(message, tag, False)
+                toc = time.perf_counter()
+
+                if res:
+                    return tag
+
+                times[j] += toc - tic
+
+        best = times.index(max(times))
+        tag[i] = best
+
+    return tag
+
+def main():
+    message = "Banana"
+
+    length = 16
+
+    # times = [[0] * 256] * length
+    # print(times)
+
+    tic = time.perf_counter()
+    tag = cracker(message, length, 100)
+    toc = time.perf_counter()
+
     verifier = Verifier(length=length, slowness=1000)
+    res = verifier.verify(message, tag, False)
 
-    res = verifier.verify(message, tag, True)
+    print(f"Tag {len(tag)} {binascii.hexlify(tag)} is {'good' if res else 'bad'}")
 
-    print(f"Tag {binascii.hexlify(tag)} is {'good' if res else 'bad'}")
+    print(f"\nCracking took {toc - tic:0.4f} seconds")
 
     #
     # Steps:
@@ -67,8 +98,6 @@ def main():
     #   - Repeat for the next byte...
     #   - Guess the full tag!
     #
-
-
 
 if __name__ == "__main__":
     main()
