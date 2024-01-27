@@ -4,6 +4,7 @@ import binascii
 import hashlib
 import hmac
 import time
+import matplotlib.pyplot as plt
 
 
 #
@@ -50,12 +51,14 @@ class Verifier:
 def cracker(message, length, iterations):
     tag = bytearray(b"\x00" * length)
 
+    fig = plt.figure()
+
     for i in range(length):
         times = [0] * 0x100
         for _ in range(iterations):
             for j in range(0x100):
                 tag[i] = j
-                verifier = Verifier(length=length, slowness=1000)
+                verifier = Verifier(length=length, slowness=250)
 
                 tic = time.perf_counter()
                 res = verifier.verify(message, tag, False)
@@ -65,6 +68,8 @@ def cracker(message, length, iterations):
                     return tag
 
                 times[j] += toc - tic
+
+        plt.plot(times, c='C' + str(i), zorder=i, label=f'Byte {i}', linewidth=1)
 
         best = times.index(max(times))
         tag[i] = best
@@ -90,6 +95,7 @@ def main():
 
     print(f"\nCracking took {toc - tic:0.4f} seconds")
 
+    plt.show()
     #
     # Steps:
     #   - Iterate through all possible first character values, calling the
