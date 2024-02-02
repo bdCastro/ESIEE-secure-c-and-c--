@@ -4,6 +4,7 @@ import binascii
 import hashlib
 import hmac
 import time
+import matplotlib.pyplot as plt
 
 
 #
@@ -12,6 +13,7 @@ import time
 #  - You cannot read the value of 'key' (except for debugging)
 #  - You cannot use 'trace=True' (except for debugging)
 #
+
 class Verifier:
     def __init__(self, length, slowness):
         assert length <= 32
@@ -45,23 +47,49 @@ class Verifier:
 #
 # End of 'do not modify' class
 #
+    
+def cracker(message, length, iterations):
+    tag = bytearray(b"\x00" * length)
 
+    fig = plt.figure()
+
+    for i in range(length):
+        times = [0] * 0x100
+        for _ in range(iterations):
+            for j in range(0x100):
+                tag[i] = j
+                verifier = Verifier(length=length, slowness=250)
+
+                tic = time.perf_counter()
+                res = verifier.verify(message, tag, False)
+                toc = time.perf_counter()
+
+                if res:
+                    return tag
+
+                times[j] += toc - tic
+
+        plt.plot(times, c='C' + str(i), zorder=i, label=f'Byte {i}', linewidth=1)
+
+        best = times.index(max(times))
+        tag[i] = best
+
+    return tag
 
 def main():
-    message = "test"
+    message = "DummyTestMessage"
 
     length = 16
     tag = bytearray(b"\x00" * length)
 
-    letters = [chr(i) for i in range(65, 91)]
-    print(letters)
-
     verifier = Verifier(length=length, slowness=1000)
+    res = verifier.verify(message, tag, False)
 
-    res = verifier.verify(message, tag, True)
+    print(f"Tag {len(tag)} {binascii.hexlify(tag)} is {'good' if res else 'bad'}")
 
-    print(f"Tag {binascii.hexlify(tag)} is {'good' if res else 'bad'}")
+    print(f"\nCracking took {toc - tic:0.4f} seconds")
 
+    plt.show()
     #
     # Steps:
     #   - Iterate through all possible first character values, calling the
@@ -70,8 +98,6 @@ def main():
     #   - Repeat for the next byte...
     #   - Guess the full tag!
     #
-
-
 
 if __name__ == "__main__":
     main()
