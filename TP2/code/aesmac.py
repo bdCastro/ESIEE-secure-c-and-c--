@@ -48,10 +48,13 @@ class Verifier:
 
 
 def main():
-    message = "DummyTestMessage"
+    message = "test"
 
     length = 16
     tag = bytearray(b"\x00" * length)
+
+    letters = [chr(i) for i in range(65, 91)]
+    print(letters)
 
     verifier = Verifier(length=length, slowness=1000)
 

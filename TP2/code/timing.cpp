@@ -22,7 +22,7 @@ class Verifier {
     void slow() {
         volatile unsigned int x = 0;
         for (size_t i=0; i<slowness; i++) {
-            x = x + 1zu;
+            x = x + 1;
         }
     }
 
@@ -52,9 +52,9 @@ public:
 int main(void) {
     std::string guess = "test";
 
-    size_t length = 16zu;
+    size_t length = 16;
 
-    Verifier verifier(length, 10'000zu);
+    Verifier verifier(length, 10'000);
 
     std::cout << verifier.verify(guess) << std::endl;
 
@@ -66,7 +66,6 @@ int main(void) {
      *   - Repeat for the next byte...
      *   - Guess the full secret!
      */
-
 
     return 0;
 }
