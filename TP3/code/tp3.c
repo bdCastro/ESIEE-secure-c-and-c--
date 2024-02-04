@@ -3,7 +3,7 @@
 
 #pragma GCC diagnostic ignored "-Wimplicit-function-declaration"
 
-[[gnu::noinline]]
+__attribute__((noinline))
 void secret_function(void)
 {
     printf("You are now in the secret function.\n");
@@ -11,8 +11,8 @@ void secret_function(void)
     exit(0);
 }
 
-[[gnu::noinline]]
-    int horribly_vulnerable(void) {
+__attribute__((noinline))
+int horribly_vulnerable(void) {
     char array[400];
     printf("Enter some wonderful text:\n");
     gets(array);
